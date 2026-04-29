@@ -46,6 +46,25 @@ Beispiele:
 
 ---
 
+### Weitere Netzwerkarten
+
+| Art | Erklärung |
+|---|---|
+| **Intranet** | Interner Verbund aus LANs/WANs, nur für Organisationsmitglieder zugänglich |
+| **Extranet** | Kontrollierter, gesicherter Zugang für externe Partner auf Teile des internen Netzes |
+| **SOHO** | Small Office / Home Office – kleines Büro oder Heimbüro mit Anbindung ans Firmennetz |
+
+#### Netzwerkgrößen
+
+| Größe | Bezeichnung |
+|---|---|
+| Klein | Heimnetzwerk |
+| SOHO | Small Office / Home Office |
+| Mittel / Groß | Unternehmensnetzwerk |
+| Weltweit | Internet |
+
+---
+
 ### Abfragefragen
 
 1. Was ist ein Netzwerk?
@@ -53,6 +72,9 @@ Beispiele:
 3. Was ist ein Endgerät?
 4. Was ist ein Zwischengerät?
 5. Was ist der Unterschied zwischen LAN und WAN?
+6. Was ist ein Intranet?
+7. Was ist ein Extranet?
+8. Was bedeutet SOHO?
 
 ---
 
@@ -111,19 +133,48 @@ Heute ist im LAN besonders die **Stern-Topologie mit Switches** üblich.
 
 ## 3. Hierarchische Netzwerkarchitektur
 
-Größere Netzwerke werden oft in drei Schichten aufgebaut.
+Größere Netzwerke werden oft hierarchisch in Schichten aufgebaut.
 
-| Schicht | Aufgabe |
-|---|---|
-| **Access Layer** | Endgeräte werden angeschlossen, z. B. PCs, Drucker, Access Points |
-| **Distribution Layer** | Verbindet Access-Switches, kann Routing, Filterung und VLAN-Verteilung übernehmen |
-| **Core Layer** | Schnelles Backbone/Rückgrat des Netzwerks |
+### Three-tier Design
 
-### Merksatz
+| Schicht | Aufgabe | Typische Geräte |
+|---|---|---|
+| **Access Layer** | Endgeräte werden angeschlossen, z. B. PCs, Drucker, Access Points | Access-Switches |
+| **Distribution Layer** | Verbindet Access-Switches; übernimmt Routing, Filterung, QoS und VLAN-Verteilung; kontrolliert Datenfluss | Layer-3-Switches, Router |
+| **Core Layer** | Highspeed-Backbone mit redundanten Verbindungen; transportiert Daten zwischen Netzwerken | Core-Switches, Router |
+
+Merksatz:
 
 > Access = Zugang für Endgeräte  
-> Distribution = Verteilung  
+> Distribution = Verteilung und Steuerung  
 > Core = schnelles Zentrum
+
+---
+
+### Two-tier Design / Collapsed Core
+
+- Distribution- und Core-Layer werden zu **einer Schicht zusammengefasst**.
+- Auch genannt: **Collapsed Core Network Design**.
+- Geeignet für **kleinere Standorte** oder Standorte in einem einzigen Gebäude.
+
+---
+
+### Zuverlässige Netzwerke – vier Qualitätsmerkmale
+
+| Merkmal | Erklärung |
+|---|---|
+| **Fehlertoleranz** | Netzwerk bleibt bei Ausfall eines Pfades verfügbar; Paketvermittlung erlaubt alternative Wege |
+| **Skalierbarkeit** | Netzwerk kann wachsen ohne Leistungseinbußen |
+| **Quality of Service (QoS)** | Priorisiert bestimmte Datenströme, z. B. Sprache vor Dateitransfer |
+| **Sicherheit** | Vertraulichkeit, Integrität und Verfügbarkeit (CIA) |
+
+#### CIA-Schutzziele
+
+| Schutzziel | Bedeutung |
+|---|---|
+| **Vertraulichkeit** | Nur berechtigte Personen können die Daten lesen |
+| **Integrität** | Daten werden nicht unbemerkt verändert |
+| **Verfügbarkeit** | Autorisierte Benutzer haben zuverlässigen Zugriff |
 
 ---
 
@@ -132,9 +183,14 @@ Größere Netzwerke werden oft in drei Schichten aufgebaut.
 1. Was ist eine physikalische Topologie?
 2. Was ist eine logische Topologie?
 3. Was ist eine Stern-Topologie?
-4. Welche drei Schichten hat die hierarchische Netzwerkarchitektur?
+4. Welche drei Schichten hat das Three-tier Design?
 5. Was macht der Access Layer?
-6. Was macht der Core Layer?
+6. Was macht der Distribution Layer?
+7. Was macht der Core Layer?
+8. Was ist ein Collapsed Core / Two-tier Design?
+9. Wann verwendet man ein Two-tier Design?
+10. Was sind die vier Qualitätsmerkmale zuverlässiger Netzwerke?
+11. Was bedeuten Vertraulichkeit, Integrität und Verfügbarkeit?
 
 ---
 
@@ -266,9 +322,61 @@ Dazu gehören:
 
 | Medium | Erklärung |
 |---|---|
-| **Kupferkabel** | z. B. Twisted-Pair-Kabel mit RJ45-Stecker |
-| **Glasfaser** | Übertragung mit Licht, schnell und störungsarm |
-| **Funk** | WLAN, Bluetooth, Mobilfunk |
+| **Kupferkabel** | z. B. Twisted-Pair-Kabel mit RJ45-Stecker; überträgt elektrische Signale |
+| **Glasfaser** | Übertragung mit Licht (Laser/LED), schnell und immun gegen EMI/RFI |
+| **Funk** | WLAN, Bluetooth, Mobilfunk; überträgt elektromagnetische Wellen |
+
+---
+
+### Kupferverkabelung (UTP)
+
+UTP = Unshielded Twisted Pair (ungeschirmtes verdrilltes Adernpaar), Stecker: RJ-45, Standard: TIA/EIA-568.
+
+**Wie UTP Crosstalk verhindert:**
+
+1. **Cancellation**: Jedes Drahtpaar nutzt entgegengesetzte Polarität → Magnetfelder heben sich auf → schützt vor EMI/RFI.
+2. **Verdrillungsvariation**: Jedes Paar hat eine andere Anzahl Verdrillungen pro Fuß → verhindert Übersprechen zwischen Paaren.
+
+**Kategorien (Beispiele):**
+
+| Kategorie | Verwendung |
+|---|---|
+| Kat. 3 | ältere Telefonverkabelung |
+| Kat. 5 / 5e | Fast Ethernet / Gigabit Ethernet |
+| Kat. 6 | Gigabit Ethernet und schneller |
+
+---
+
+### Glasfaserverkabelung
+
+Überträgt Daten als Lichtimpulse. Immun gegen EMI/RFI. Sehr große Reichweiten und Bandbreiten.
+
+**Steckverbindertypen:**
+
+| Steckverbinder | Kürzel |
+|---|---|
+| Straight-Tip | ST |
+| Subscriber Connector | SC |
+| Lucent Connector Simplex | LC |
+| Duplex-Multimode-LC | LC-Duplex |
+
+**Vier Verwendungsbereiche:**
+
+1. **Unternehmensnetzwerke** — Backbone-Verkabelung zwischen Switches
+2. **Fiber-to-the-Home (FTTH)** — Breitbandanschluss ins Haus
+3. **Langstreckennetze** — Service-Provider verbinden Städte und Länder
+4. **Unterseekabel** — Hochgeschwindigkeitsverbindungen über Ozeane
+
+---
+
+### Funk (Wireless) — Einschränkungen
+
+| Einschränkung | Erklärung |
+|---|---|
+| **Abdeckungsbereich** | Wände und physische Hindernisse reduzieren Reichweite |
+| **Interferenz** | Andere Geräte (z. B. Mikrowelle) können stören |
+| **Sicherheit** | Funksignale können ohne physischen Zugang abgehört werden |
+| **Halbduplex** | WLAN kann immer nur ein Gerät gleichzeitig senden oder empfangen → Bandbreite sinkt bei vielen Nutzern |
 
 ---
 
@@ -279,6 +387,7 @@ Dazu gehören:
 | **EMI** | Elektromagnetische Interferenzen, z. B. durch Stromleitungen |
 | **RFI** | Hochfrequenzstörungen, z. B. durch Funkquellen |
 | **Crosstalk** | Übersprechen zwischen Adern oder Kabeln |
+| **Dämpfung** | Signalverlust über lange Kabelstrecken |
 
 ---
 
@@ -286,6 +395,7 @@ Dazu gehören:
 
 | Begriff | Bedeutung |
 |---|---|
+| **Bandbreite** | Maximale Datenübertragungskapazität eines Mediums |
 | **Latenz** | Verzögerung bei der Datenübertragung |
 | **Throughput** | Tatsächlich übertragene Datenmenge pro Zeit |
 | **Goodput** | Nutzdatenrate ohne Protokoll-Overhead und Wiederholungen |
@@ -316,10 +426,13 @@ Wenn insgesamt 100 Mbit/s übertragen werden, aber davon nur 90 Mbit/s echte Nut
 5. Was ist Goodput?
 6. Was ist Crosstalk?
 7. Warum ist Glasfaser weniger störanfällig als Kupfer?
+8. Wie verhindert UTP Crosstalk?
+9. Nenne vier Glasfaser-Steckverbindertypen.
+10. Nenne die vier Verwendungsbereiche von Glasfaser.
+11. Was bedeutet Halbduplex bei WLAN?
+12. Welche vier Einschränkungen hat Funk gegenüber Kabel?
 
 ---
-
-## 8. Ethernet und Switching
 
 ### Ethernet
 
@@ -655,17 +768,40 @@ PC-Netzwerk → Router → Internet
 
 ### IP-Header
 
-Der IP-Header enthält Steuerinformationen für die Übertragung.
+Der IP-Header enthält alle Steuerinformationen, die ein Router benötigt, um das Paket weiterzuleiten.
 
-Wichtige Felder:
+**Alle wichtigen Felder:**
 
-| Feld | Bedeutung |
+| Feld | Größe | Bedeutung |
+|---|---|---|
+| **Version** | 4 Bit | IP-Version: 4 für IPv4 |
+| **IHL** (Internet Header Length) | 4 Bit | Länge des Headers; Minimum: 5 × 32 Bit = **20 Byte** |
+| **DSCP** (Differentiated Services) | 8 Bit | Paketpriorität / Quality of Service |
+| **Total Length** | 16 Bit | Gesamtlänge des Pakets in Byte |
+| **Identification** | 16 Bit | Eindeutige ID für Fragmentierung |
+| **Flags** | 3 Bit | DF = Don't Fragment; MF = More Fragments (siehe unten) |
+| **Fragment Offset** | 13 Bit | Position eines Fragments innerhalb des ursprünglichen Pakets |
+| **TTL** | 8 Bit | Time To Live; wird an jedem Router um 1 reduziert |
+| **Protocol** | 8 Bit | Protokoll der nächsten Schicht |
+| **Header Checksum** | 16 Bit | Prüfsumme des Headers |
+| **Quell-IP** | 32 Bit | IP-Adresse des Senders |
+| **Ziel-IP** | 32 Bit | IP-Adresse des Empfängers |
+
+**Flags:**
+
+| Bit | Name | Bedeutung |
+|---|---|---|
+| Bit 0 | Reserviert | Immer 0 |
+| Bit 1 | **DF** (Don't Fragment) | 1 = Paket darf **nicht** fragmentiert werden |
+| Bit 2 | **MF** (More Fragments) | 1 = weitere Fragmente folgen; 0 = letztes Fragment |
+
+**Protocol-Nummern:**
+
+| Protokoll | Nummer |
 |---|---|
-| Quell-IP | IP-Adresse des Senders |
-| Ziel-IP | IP-Adresse des Empfängers |
-| TTL | Lebensdauer des Pakets |
-| Protokoll | z. B. TCP oder UDP |
-| Fragmentierungsinformationen | wichtig, wenn Pakete geteilt werden müssen |
+| **ICMP** | 1 |
+| **TCP** | 6 |
+| **UDP** | 17 |
 
 ---
 
@@ -725,6 +861,13 @@ Typischer Ethernet-Wert:
 5. Was bedeutet MTU?
 6. Wie viele Bit hat IPv4?
 7. Wie viele Bit hat IPv6?
+8. Was bedeutet das DF-Flag?
+9. Was bedeutet das MF-Flag?
+10. Was ist die Protocol-Nummer von TCP?
+11. Was ist die Protocol-Nummer von UDP?
+12. Was ist die Protocol-Nummer von ICMP?
+13. Was ist IHL und welchen minimalen Wert hat es?
+14. Wofür steht DSCP?
 
 ---
 
@@ -744,6 +887,20 @@ Sie wird in vier Blöcke mit je 8 Bit geschrieben.
 192 . 168 . 1 . 10
  8     8    8    8 Bit
 ```
+
+---
+
+### IP-Adressklassen
+
+| Klasse | Bereich | Führende Bits | Standard-Subnetzmaske | Verwendung |
+|---|---|---|---|---|
+| **A** | 1 – 127 | `0` | 255.0.0.0 (/8) | Sehr große Netzwerke |
+| **B** | 128 – 191 | `10` | 255.255.0.0 (/16) | Mittlere Netzwerke |
+| **C** | 192 – 223 | `110` | 255.255.255.0 (/24) | Kleine Netzwerke |
+| **D** | 224 – 239 | `1110` | — | Multicast (reserviert) |
+| **E** | 240 – 255 | `1111` | — | Experimentell (reserviert) |
+
+Hinweis: 127.x.x.x ist reserviert für Loopback (z. B. `127.0.0.1`).
 
 ---
 
@@ -1338,6 +1495,16 @@ Testet Internet mit DNS.
 - **Network Address** = erste Adresse im Subnetz.
 - **Broadcast Address** = letzte Adresse im Subnetz.
 - **VLSM** spart IP-Adressen durch unterschiedlich große Subnetze.
+- **Intranet** = geschlossenes internes Netz.
+- **Extranet** = kontrollierter externer Zugang zum Intranet.
+- **SOHO** = kleines Büro oder Heimbüro.
+- **Collapsed Core** = Two-tier Design; Distribution + Core in einer Ebene.
+- **QoS** priorisiert Netzwerkverkehr (z. B. Sprache vor Daten).
+- CIA: **Vertraulichkeit, Integrität, Verfügbarkeit**.
+- **DF-Flag** = Don't Fragment; **MF-Flag** = More Fragments.
+- Protocol-Nummern: ICMP = 1, TCP = 6, UDP = 17.
+- **UTP** verhindert Crosstalk durch Cancellation und Verdrillungsvariation.
+- **WLAN** arbeitet im **Halbduplex**-Modus.
 
 ---
 
@@ -1351,6 +1518,9 @@ Testet Internet mit DNS.
 4. Was ist ein Endgerät?
 5. Was ist ein Zwischengerät?
 6. Was ist der Unterschied zwischen LAN und WAN?
+7. Was ist ein Intranet?
+8. Was ist ein Extranet?
+9. Was bedeutet SOHO?
 
 ### Topologie
 
@@ -1358,6 +1528,9 @@ Testet Internet mit DNS.
 2. Was ist eine logische Topologie?
 3. Was ist eine Stern-Topologie?
 4. Was sind Access-, Distribution- und Core-Layer?
+5. Was ist ein Collapsed Core / Two-tier Design?
+6. Was sind die vier Qualitätsmerkmale zuverlässiger Netzwerke?
+7. Was bedeuten Vertraulichkeit, Integrität und Verfügbarkeit?
 
 ### Protokolle
 
@@ -1394,6 +1567,11 @@ Testet Internet mit DNS.
 4. Was ist Goodput?
 5. Was ist EMI?
 6. Was ist Crosstalk?
+7. Wie verhindert UTP Crosstalk? (Cancellation + Verdrillungsvariation)
+8. Nenne vier Glasfaser-Steckverbindertypen.
+9. Nenne die vier Verwendungsbereiche von Glasfaser.
+10. Was bedeutet Halbduplex bei WLAN?
+11. Welche vier Einschränkungen hat Funk?
 
 ### Ethernet und Switching
 
@@ -1436,17 +1614,23 @@ Testet Internet mit DNS.
 3. Was ist MTU?
 4. Wie viele Bit hat IPv4?
 5. Wie viele Bit hat IPv6?
+6. Was bedeutet das DF-Flag?
+7. Was bedeutet das MF-Flag?
+8. Was ist die Protocol-Nummer von TCP?
+9. Was ist IHL und welchen minimalen Wert hat es?
+10. Wofür steht DSCP?
 
 ### IPv4 und Subnetting
 
-1. Was bedeutet `/24`?
-2. Was ist eine Subnetzmaske?
-3. Was ist eine Netzwerkadresse?
-4. Was ist eine Broadcastadresse?
-5. Wie berechnet man nutzbare Hosts?
-6. Was ist logisches UND?
-7. Was bedeutet VLSM?
-8. Welche privaten IPv4-Bereiche gibt es?
+1. Was sind die IP-Adressklassen A bis E?
+2. Was bedeutet `/24`?
+3. Was ist eine Subnetzmaske?
+4. Was ist eine Netzwerkadresse?
+5. Was ist eine Broadcastadresse?
+6. Wie berechnet man nutzbare Hosts?
+7. Was ist logisches UND?
+8. Was bedeutet VLSM?
+9. Welche privaten IPv4-Bereiche gibt es?
 
 ### Dienste
 
@@ -1580,6 +1764,14 @@ Diese Themen solltest du besonders sicher können:
 13. Physical Layer mit Medien, Störungen und Kennzahlen erklären
 14. Ethernet Switching mit MAC-Tabelle und Flooding erklären
 15. Topologie auf Fehler prüfen können
+16. IP-Adressklassen A–E kennen
+17. IP-Header-Felder erklären (TTL, DF/MF-Flags, Protocol-Nummern, IHL, DSCP)
+18. Intranet und Extranet unterscheiden
+19. Collapsed Core / Two-tier Design erklären
+20. CIA-Schutzziele nennen und erklären
+21. WLAN-Einschränkungen kennen (Halbduplex, Interferenz, Sicherheit, Reichweite)
+22. UTP-Kategorien und Crosstalk-Schutz erklären (Cancellation + Verdrillungsvariation)
+23. Glasfaser-Steckverbindertypen und Verwendungsbereiche nennen
 
 ---
 
