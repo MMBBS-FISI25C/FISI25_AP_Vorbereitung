@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cisco IOS – Befehls-Cheat-Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fafaf7;
+    --paper:#ffffff;
+    --ink:#16181d;
+    --muted:#7a7e87;
+    --line:#e3e2da;
+    --cmd:#1d2230;
+    --ph:#c2410c;
+    --kw:#0b6b58;
+    --short:#1d4ed8;
+    --grid:#eceae0;
+    --c-mode:#5b21b6;
+    --c-base:#1d4ed8;
+    --c-if:#047857;
+    --c-show:#7c3aed;
+    --c-del:#9a3412;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{font-size:15px;}
+  body{
+    font-family:"IBM Plex Sans",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.3;
+    padding:24px;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:22px 22px;
+  }
+  .sheet{
+    max-width:640px;
+    margin:0 auto;
+    background:var(--paper);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 #fff inset, 0 12px 40px -22px rgba(0,0,0,.35);
+    padding:26px 30px 30px;
+  }
+  header{
+    border-bottom:3px solid var(--ink);
+    padding-bottom:12px;
+    margin-bottom:18px;
+  }
+  .title h1{
+    font-size:1.7rem;
+    font-weight:700;
+    letter-spacing:-.5px;
+    line-height:1;
+  }
+  .title .sub{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.7rem;
+    color:var(--muted);
+    letter-spacing:.5px;
+    margin-top:6px;
+    text-transform:uppercase;
+  }
+  .legend{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.64rem;
+    color:var(--muted);
+    margin-top:10px;
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .legend b{color:var(--ph);font-weight:600;}
+  .legend .k{color:var(--kw);font-weight:600;}
+  .legend .s{color:var(--short);font-weight:600;}
+
+  .card{
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent,#999);
+    background:#fff;
+    margin:0 0 14px;
+    padding:11px 14px 12px;
+    border-radius:3px;
+  }
+  .card:last-of-type{ margin-bottom:0; }
+  .card h2{
+    font-family:"IBM Plex Sans",sans-serif;
+    font-size:.74rem;
+    font-weight:700;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    color:var(--accent,#333);
+    margin-bottom:9px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .card h2 .mode{
+    margin-left:auto;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.6rem;
+    font-weight:500;
+    letter-spacing:0;
+    text-transform:none;
+    color:var(--muted);
+    background:#f3f2ec;
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:0 6px;
+  }
+  .card h2::before{
+    content:"";
+    width:7px;height:7px;border-radius:1px;
+    background:var(--accent,#999);
+    display:inline-block;
+  }
+
+  /* eine Zeile = ein Befehl: links voll, rechts Kurzform */
+  .crow{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    padding:3px 0;
+    border-bottom:1px dotted var(--line);
+  }
+  .crow:last-child{ border-bottom:none; }
+  .full{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.86rem;
+    color:var(--cmd);
+    word-break:break-word;
+  }
+  .full .ph{ color:var(--ph); font-weight:600; }
+  .full .kw{ color:var(--kw); font-weight:600; }
+  .short{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.78rem;
+    color:var(--short);
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .short.none{ color:var(--muted); opacity:.55; }
+
+  /* Prompt-Ladder */
+  .ladder .prow{
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.84rem;
+    padding:2.5px 0;
+    border-bottom:1px dotted var(--line);
+  }
+  .ladder .prow:last-child{ border-bottom:none; }
+  .ladder .p{ color:var(--c-mode); font-weight:600; }
+  .ladder .d{ color:var(--muted); font-size:.78rem; }
+
+  footer{
+    margin-top:16px;
+    border-top:1px solid var(--line);
+    padding-top:8px;
+    font-family:"IBM Plex Mono",monospace;
+    font-size:.62rem;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+  }
+  @page{ size:A4; margin:14mm; }
+  @media print{
+    html{font-size:11.5pt;}
+    body{ background:#fff; padding:0; background-image:none; }
+    .sheet{ max-width:none; border:none; box-shadow:none; padding:0; }
+    .card{ margin-bottom:3mm; break-inside:avoid; }
+    header{ margin-bottom:4mm; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header>
+    <div class="title">
+      <h1>Cisco IOS — Befehlsreferenz</h1>
+      <div class="sub">Packet Tracer · Router &amp; Switch · LF3</div>
+    </div>
+    <div class="legend">
+      <span><b>&lt;platzhalter&gt;</b> einsetzen</span>
+      <span><span class="k">no</span> / <span class="k">show</span> Schlüsselwort</span>
+      <span><span class="s">blau</span> = Kurzform</span>
+    </div>
+  </header>
+
+  <!-- KOMMANDOHIERARCHIE (S. 2) -->
+  <div class="card ladder" style="--accent:var(--c-mode)">
+    <h2>Kommandohierarchie</h2>
+    <div class="prow"><span class="p">Router&gt;</span><span class="d">User-EXEC</span></div>
+    <div class="prow"><span class="p">Router#</span><span class="d">Privileged-EXEC</span></div>
+    <div class="prow"><span class="p">Router(config)#</span><span class="d">Global Config</span></div>
+    <div class="prow"><span class="p">Router(config-if)#</span><span class="d">Interface</span></div>
+    <div class="prow"><span class="p">Router(config-router)#</span><span class="d">Routing</span></div>
+    <div class="prow"><span class="p">Router(config-line)#</span><span class="d">Line</span></div>
+  </div>
+
+  <!-- BERECHTIGUNGSEBENE (S. 3) -->
+  <div class="card" style="--accent:var(--c-base)">
+    <h2>Berechtigungsebene</h2>
+    <div class="crow"><span class="full">enable</span><span class="short">en</span></div>
+    <div class="crow"><span class="full">configure terminal</span><span class="short">conf t</span></div>
+    <div class="crow"><span class="full">exit</span><span class="short none">—</span></div>
+  </div>
+
+  <!-- NAMENSAUFLÖSUNG (S. 3) -->
+  <div class="card" style="--accent:var(--c-base)">
+    <h2>Namensauflösung verhindern <span class="mode">(config)#</span></h2>
+    <div class="crow"><span class="full"><span class="kw">no</span> ip domain-lookup</span><span class="short none">—</span></div>
+  </div>
+
+  <!-- INTERFACE & IP (S. 5) -->
+  <div class="card" style="--accent:var(--c-if)">
+    <h2>Interface &amp; IP-Adresse <span class="mode">(config)#</span></h2>
+    <div class="crow"><span class="full">interface <span class="ph">&lt;g0/0/1&gt;</span></span><span class="short">int <span class="ph">&lt;g0/0/1&gt;</span></span></div>
+    <div class="crow"><span class="full">ip address <span class="ph">&lt;ip&gt;</span> <span class="ph">&lt;maske&gt;</span></span><span class="short">ip add …</span></div>
+    <div class="crow"><span class="full"><span class="kw">no</span> shutdown</span><span class="short">no shut</span></div>
+  </div>
+
+  <!-- BEFEHL LÖSCHEN (S. 3) -->
+  <div class="card" style="--accent:var(--c-del)">
+    <h2>Befehl löschen <span class="mode">(config-if)#</span></h2>
+    <div class="crow"><span class="full"><span class="kw">no</span> ip address <span class="ph">&lt;ip&gt;</span> <span class="ph">&lt;maske&gt;</span></span><span class="short">no ip add …</span></div>
+  </div>
+
+  <!-- SYSTEMINFORMATIONEN (S. 4) -->
+  <div class="card" style="--accent:var(--c-show)">
+    <h2>Systeminformationen <span class="mode">#</span></h2>
+    <div class="crow"><span class="full"><span class="kw">show</span> ip interface brief</span><span class="short">sh ip int br</span></div>
+    <div class="crow"><span class="full"><span class="kw">show</span> interfaces</span><span class="short">sh int</span></div>
+    <div class="crow"><span class="full"><span class="kw">show</span> running-config</span><span class="short">sh run</span></div>
+  </div>
+
+  <footer>
+    <span>Cisco IOS · CLI-Befehlsübersicht</span>
+    <span>Interface-Name je Gerät prüfen</span>
+  </footer>
+
+</div>
+</body>
+</html>
