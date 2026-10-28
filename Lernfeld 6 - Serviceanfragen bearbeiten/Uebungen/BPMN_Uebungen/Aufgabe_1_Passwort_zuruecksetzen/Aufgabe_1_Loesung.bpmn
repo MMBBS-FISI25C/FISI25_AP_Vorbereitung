@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="17.0.0">
+<bpmn:collaboration id="Collab_1">
+<bpmn:participant id="Pool_U" name="Unternehmen – Passwort zurücksetzen" processRef="Proc_Pool_U" />
+</bpmn:collaboration>
+<bpmn:process id="Proc_Pool_U" isExecutable="false">
+<bpmn:laneSet id="LS_Pool_U">
+<bpmn:lane id="Pool_U_L0" name="Mitarbeiter">
+<bpmn:flowNodeRef>s1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>t1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>t5</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>e1</bpmn:flowNodeRef>
+</bpmn:lane>
+<bpmn:lane id="Pool_U_L1" name="IT-Support">
+<bpmn:flowNodeRef>t2</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>g1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>t4</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>t3</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>e2</bpmn:flowNodeRef>
+</bpmn:lane>
+</bpmn:laneSet>
+<bpmn:startEvent id="s1" name="Passwort vergessen">
+<bpmn:outgoing>Flow_1</bpmn:outgoing>
+</bpmn:startEvent>
+<bpmn:task id="t1" name="Ticket erstellen">
+<bpmn:incoming>Flow_1</bpmn:incoming>
+<bpmn:outgoing>Flow_2</bpmn:outgoing>
+</bpmn:task>
+<bpmn:task id="t2" name="Identität prüfen">
+<bpmn:incoming>Flow_2</bpmn:incoming>
+<bpmn:outgoing>Flow_3</bpmn:outgoing>
+</bpmn:task>
+<bpmn:exclusiveGateway id="g1" name="Identität bestätigt?">
+<bpmn:incoming>Flow_3</bpmn:incoming>
+<bpmn:outgoing>Flow_4</bpmn:outgoing>
+<bpmn:outgoing>Flow_5</bpmn:outgoing>
+</bpmn:exclusiveGateway>
+<bpmn:task id="t4" name="Passwort zurücksetzen">
+<bpmn:incoming>Flow_4</bpmn:incoming>
+<bpmn:outgoing>Flow_7</bpmn:outgoing>
+</bpmn:task>
+<bpmn:task id="t3" name="Anfrage ablehnen">
+<bpmn:incoming>Flow_5</bpmn:incoming>
+<bpmn:outgoing>Flow_6</bpmn:outgoing>
+</bpmn:task>
+<bpmn:endEvent id="e2" name="Anfrage abgelehnt">
+<bpmn:incoming>Flow_6</bpmn:incoming>
+</bpmn:endEvent>
+<bpmn:task id="t5" name="Neues Passwort festlegen">
+<bpmn:incoming>Flow_7</bpmn:incoming>
+<bpmn:outgoing>Flow_8</bpmn:outgoing>
+</bpmn:task>
+<bpmn:endEvent id="e1" name="Zugang wiederhergestellt">
+<bpmn:incoming>Flow_8</bpmn:incoming>
+</bpmn:endEvent>
+<bpmn:sequenceFlow id="Flow_1" sourceRef="s1" targetRef="t1" />
+<bpmn:sequenceFlow id="Flow_2" sourceRef="t1" targetRef="t2" />
+<bpmn:sequenceFlow id="Flow_3" sourceRef="t2" targetRef="g1" />
+<bpmn:sequenceFlow id="Flow_4" name="ja" sourceRef="g1" targetRef="t4" />
+<bpmn:sequenceFlow id="Flow_5" name="nein" sourceRef="g1" targetRef="t3" />
+<bpmn:sequenceFlow id="Flow_6" sourceRef="t3" targetRef="e2" />
+<bpmn:sequenceFlow id="Flow_7" sourceRef="t4" targetRef="t5" />
+<bpmn:sequenceFlow id="Flow_8" sourceRef="t5" targetRef="e1" />
+</bpmn:process>
+<bpmndi:BPMNDiagram id="Diagram_1"><bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collab_1">
+<bpmndi:BPMNShape id="Pool_U_di" bpmnElement="Pool_U" isHorizontal="true"><dc:Bounds x="150" y="80" width="1050" height="480" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Pool_U_L0_di" bpmnElement="Pool_U_L0" isHorizontal="true"><dc:Bounds x="180" y="80" width="1020" height="200" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Pool_U_L1_di" bpmnElement="Pool_U_L1" isHorizontal="true"><dc:Bounds x="180" y="280" width="1020" height="280" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s1_di" bpmnElement="s1"><dc:Bounds x="242.0" y="162.0" width="36" height="36" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="t1_di" bpmnElement="t1"><dc:Bounds x="330.0" y="140.0" width="100" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="t2_di" bpmnElement="t2"><dc:Bounds x="480.0" y="340.0" width="100" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="g1_di" bpmnElement="g1" isMarkerVisible="true"><dc:Bounds x="655.0" y="355.0" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="620" y="323.0" width="120" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="t4_di" bpmnElement="t4"><dc:Bounds x="770.0" y="340.0" width="100" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="t3_di" bpmnElement="t3"><dc:Bounds x="770.0" y="450.0" width="100" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="e2_di" bpmnElement="e2"><dc:Bounds x="942.0" y="472.0" width="36" height="36" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="t5_di" bpmnElement="t5"><dc:Bounds x="920.0" y="140.0" width="100" height="80" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="e1_di" bpmnElement="e1"><dc:Bounds x="1092.0" y="162.0" width="36" height="36" /></bpmndi:BPMNShape>
+<bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1"><di:waypoint x="278.0" y="180" /><di:waypoint x="330.0" y="180" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2"><di:waypoint x="430.0" y="180" /><di:waypoint x="455.0" y="180" /><di:waypoint x="455.0" y="380" /><di:waypoint x="480.0" y="380" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3"><di:waypoint x="580.0" y="380" /><di:waypoint x="655.0" y="380" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4"><di:waypoint x="705.0" y="380" /><di:waypoint x="770.0" y="380" /><bpmndi:BPMNLabel><dc:Bounds x="713.0" y="360" width="30" height="14" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5"><di:waypoint x="680" y="405.0" /><di:waypoint x="680" y="490" /><di:waypoint x="770.0" y="490" /><bpmndi:BPMNLabel><dc:Bounds x="688" y="417.0" width="30" height="14" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6"><di:waypoint x="870.0" y="490" /><di:waypoint x="942.0" y="490" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7"><di:waypoint x="870.0" y="380" /><di:waypoint x="895" y="380" /><di:waypoint x="895" y="180" /><di:waypoint x="920.0" y="180" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8"><di:waypoint x="1020.0" y="180" /><di:waypoint x="1092.0" y="180" /></bpmndi:BPMNEdge>
+</bpmndi:BPMNPlane></bpmndi:BPMNDiagram></bpmn:definitions>
