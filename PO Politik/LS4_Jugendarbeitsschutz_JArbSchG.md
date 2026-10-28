@@ -11,6 +11,8 @@ Das JArbSchG gilt für **Jugendliche**: Personen ab 15 bis unter 18 Jahren (§ 2
 ## Arbeitszeit (§ 8 JArbSchG)
 
 - **Täglich:** maximal **8 Stunden**
+- **Ausnahme:** max. 8,5 Stunden, wenn ein **Brückentag** durch Mehrarbeit an einem **anderen Tag ausgeglichen** werden soll.
+- **Ausnahme: max.** 8,5 Stunden, wenn die Arbeitszeit an **anderen Tagen derselben Woche verkürzt** ist.
 - **Wöchentlich:** maximal **40 Stunden**
 
 ### Anrechnung der Berufsschulzeit (§ 9 JArbSchG)
