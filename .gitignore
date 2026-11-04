@@ -1,0 +1,41 @@
+# Betriebssystem
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# Editoren / IDEs
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*~
+
+# Obsidian (nur persönliche Ansicht, Inhalte bleiben)
+.obsidian/workspace*.json
+.obsidian/cache
+
+# Claude Code / lokale Agent-Dateien
+.claude/
+CLAUDE.local.md
+
+# Python / Tools
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ruff_cache/
+.pytest_cache/
+
+# Node
+node_modules/
+
+# Office-/Temp-Dateien
+~$*
+*.tmp
+*.bak
+*.log
+
+# Entwürfe / Ablage, nicht Teil der Aufgaben
+scratch/
+tmp/
