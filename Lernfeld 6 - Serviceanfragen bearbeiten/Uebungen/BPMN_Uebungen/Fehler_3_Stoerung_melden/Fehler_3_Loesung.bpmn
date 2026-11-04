@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="17.0.0">
+<bpmn:collaboration id="Collab_1">
+<bpmn:participant id="Pool_0" name="Kunde" processRef="Proc_0" />
+<bpmn:participant id="Pool_1" name="IT-Service" processRef="Proc_1" />
+<bpmn:messageFlow id="Msg_k1_ss" sourceRef="k1" targetRef="ss" />
+<bpmn:messageFlow id="Msg_d5_imc" sourceRef="d5" targetRef="imc" />
+</bpmn:collaboration>
+<bpmn:process id="Proc_0" isExecutable="false">
+<bpmn:startEvent id="s0" name="Netzausfall bemerkt"><bpmn:outgoing>Flow_1</bpmn:outgoing></bpmn:startEvent>
+<bpmn:task id="k1" name="Störung melden"><bpmn:incoming>Flow_1</bpmn:incoming></bpmn:task>
+<bpmn:intermediateCatchEvent id="imc" name="Rückmeldung erhalten"><bpmn:outgoing>Flow_12</bpmn:outgoing><bpmn:messageEventDefinition id="MED_imc" /></bpmn:intermediateCatchEvent>
+<bpmn:endEvent id="ke" name="Netzwerk läuft"><bpmn:incoming>Flow_12</bpmn:incoming></bpmn:endEvent>
+<bpmn:sequenceFlow id="Flow_1" sourceRef="s0" targetRef="k1" />
+<bpmn:sequenceFlow id="Flow_12" sourceRef="imc" targetRef="ke" />
+</bpmn:process>
+<bpmn:process id="Proc_1" isExecutable="false">
+<bpmn:laneSet id="LS_1">
+<bpmn:lane id="Lane_1_0" name="Service Desk">
+<bpmn:flowNodeRef>ss</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>d1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>d2</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>g1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>d3</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>x1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>d5</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>e3</bpmn:flowNodeRef>
+</bpmn:lane>
+<bpmn:lane id="Lane_1_1" name="2nd-Level-Support">
+<bpmn:flowNodeRef>l1</bpmn:flowNodeRef>
+<bpmn:flowNodeRef>l2</bpmn:flowNodeRef>
+</bpmn:lane>
+</bpmn:laneSet>
+<bpmn:startEvent id="ss" name="Störung eingegangen"><bpmn:outgoing>Flow_2</bpmn:outgoing><bpmn:messageEventDefinition id="MED_ss" /></bpmn:startEvent>
+<bpmn:task id="d1" name="Ticket anlegen"><bpmn:incoming>Flow_2</bpmn:incoming><bpmn:outgoing>Flow_3</bpmn:outgoing></bpmn:task>
+<bpmn:task id="d2" name="Störung klassifizieren"><bpmn:incoming>Flow_3</bpmn:incoming><bpmn:outgoing>Flow_4</bpmn:outgoing></bpmn:task>
+<bpmn:exclusiveGateway id="g1" name="Standardfall?"><bpmn:incoming>Flow_4</bpmn:incoming><bpmn:outgoing>Flow_5</bpmn:outgoing><bpmn:outgoing>Flow_6</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:task id="d3" name="Standardlösung durchführen"><bpmn:incoming>Flow_5</bpmn:incoming><bpmn:outgoing>Flow_7</bpmn:outgoing></bpmn:task>
+<bpmn:task id="l1" name="Störung analysieren"><bpmn:incoming>Flow_6</bpmn:incoming><bpmn:outgoing>Flow_8</bpmn:outgoing></bpmn:task>
+<bpmn:task id="l2" name="Störung beheben"><bpmn:incoming>Flow_8</bpmn:incoming><bpmn:outgoing>Flow_9</bpmn:outgoing></bpmn:task>
+<bpmn:exclusiveGateway id="x1"><bpmn:incoming>Flow_7</bpmn:incoming><bpmn:incoming>Flow_9</bpmn:incoming><bpmn:outgoing>Flow_10</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:task id="d5" name="Kunde informieren"><bpmn:incoming>Flow_10</bpmn:incoming><bpmn:outgoing>Flow_11</bpmn:outgoing></bpmn:task>
+<bpmn:endEvent id="e3" name="Ticket geschlossen"><bpmn:incoming>Flow_11</bpmn:incoming></bpmn:endEvent>
+<bpmn:sequenceFlow id="Flow_2" sourceRef="ss" targetRef="d1" />
+<bpmn:sequenceFlow id="Flow_3" sourceRef="d1" targetRef="d2" />
+<bpmn:sequenceFlow id="Flow_4" sourceRef="d2" targetRef="g1" />
+<bpmn:sequenceFlow id="Flow_5" name="ja" sourceRef="g1" targetRef="d3" />
+<bpmn:sequenceFlow id="Flow_6" name="nein" sourceRef="g1" targetRef="l1" />
+<bpmn:sequenceFlow id="Flow_7" sourceRef="d3" targetRef="x1" />
+<bpmn:sequenceFlow id="Flow_8" sourceRef="l1" targetRef="l2" />
+<bpmn:sequenceFlow id="Flow_9" sourceRef="l2" targetRef="x1" />
+<bpmn:sequenceFlow id="Flow_10" sourceRef="x1" targetRef="d5" />
+<bpmn:sequenceFlow id="Flow_11" sourceRef="d5" targetRef="e3" />
+</bpmn:process>
+<bpmndi:BPMNDiagram id="Diagram_1"><bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collab_1">
+<bpmndi:BPMNShape id="Pool_0_di" bpmnElement="Pool_0" isHorizontal="true"><dc:Bounds x="10" y="10" width="1000" height="130" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Pool_1_di" bpmnElement="Pool_1" isHorizontal="true"><dc:Bounds x="10" y="165" width="1000" height="260" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Lane_1_0_di" bpmnElement="Lane_1_0" isHorizontal="true"><dc:Bounds x="36" y="165" width="974" height="130" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Lane_1_1_di" bpmnElement="Lane_1_1" isHorizontal="true"><dc:Bounds x="36" y="295" width="974" height="130" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="s0_di" bpmnElement="s0"><dc:Bounds x="79" y="59" width="32" height="32" /><bpmndi:BPMNLabel><dc:Bounds x="55" y="95" width="80" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="k1_di" bpmnElement="k1"><dc:Bounds x="142.0" y="49.0" width="96.0" height="52.0" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="imc_di" bpmnElement="imc"><dc:Bounds x="854" y="59" width="32" height="32" /><bpmndi:BPMNLabel><dc:Bounds x="830" y="95" width="80" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="ss_di" bpmnElement="ss"><dc:Bounds x="174" y="214" width="32" height="32" /><bpmndi:BPMNLabel><dc:Bounds x="150" y="250" width="80" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="d1_di" bpmnElement="d1"><dc:Bounds x="232.0" y="204.0" width="96.0" height="52.0" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="d2_di" bpmnElement="d2"><dc:Bounds x="342.0" y="204.0" width="96.0" height="52.0" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="g1_di" bpmnElement="g1"><dc:Bounds x="458" y="208" width="44" height="44" /><bpmndi:BPMNLabel><dc:Bounds x="440" y="256" width="80" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="d3_di" bpmnElement="d3"><dc:Bounds x="542.0" y="204.0" width="96.0" height="52.0" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="l1_di" bpmnElement="l1"><dc:Bounds x="542.0" y="334.0" width="96.0" height="52.0" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="l2_di" bpmnElement="l2"><dc:Bounds x="657.0" y="334.0" width="96.0" height="52.0" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="x1_di" bpmnElement="x1"><dc:Bounds x="758" y="208" width="44" height="44" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="d5_di" bpmnElement="d5"><dc:Bounds x="822.0" y="204.0" width="96.0" height="52.0" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="e3_di" bpmnElement="e3"><dc:Bounds x="944" y="214" width="32" height="32" /><bpmndi:BPMNLabel><dc:Bounds x="920" y="250" width="80" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="ke_di" bpmnElement="ke"><dc:Bounds x="944" y="59" width="32" height="32" /><bpmndi:BPMNLabel><dc:Bounds x="920" y="95" width="80" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1"><di:waypoint x="111" y="75" /><di:waypoint x="142.0" y="75" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Msg_k1_ss_di" bpmnElement="Msg_k1_ss"><di:waypoint x="190" y="101.0" /><di:waypoint x="190" y="214" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2"><di:waypoint x="206" y="230" /><di:waypoint x="232.0" y="230" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3"><di:waypoint x="328.0" y="230" /><di:waypoint x="342.0" y="230" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4"><di:waypoint x="438.0" y="230" /><di:waypoint x="458" y="230" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5"><di:waypoint x="502" y="230" /><di:waypoint x="542.0" y="230" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6"><di:waypoint x="480" y="252" /><di:waypoint x="480" y="360" /><di:waypoint x="542.0" y="360" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7"><di:waypoint x="638.0" y="230" /><di:waypoint x="758" y="230" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8"><di:waypoint x="638.0" y="360" /><di:waypoint x="657.0" y="360" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9"><di:waypoint x="753.0" y="360" /><di:waypoint x="780" y="360" /><di:waypoint x="780" y="252" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10"><di:waypoint x="802" y="230" /><di:waypoint x="822.0" y="230" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11"><di:waypoint x="918.0" y="230" /><di:waypoint x="944" y="230" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Msg_d5_imc_di" bpmnElement="Msg_d5_imc"><di:waypoint x="870" y="204.0" /><di:waypoint x="870" y="91" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12"><di:waypoint x="886" y="75" /><di:waypoint x="944" y="75" /></bpmndi:BPMNEdge>
+</bpmndi:BPMNPlane></bpmndi:BPMNDiagram></bpmn:definitions>
