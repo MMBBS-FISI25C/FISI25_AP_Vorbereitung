@@ -4,12 +4,21 @@ Lernmaterialien zur Abschlussprüfungsvorbereitung für Fachinformatiker Systemi
 
 ## Inhaltsverzeichnis
 
+- [Lernfeld 2 – Arbeitsplätze nach Kundenwunsch ausstatten](#lernfeld-2--arbeitsplätze-nach-kundenwunsch-ausstatten)
 - [Lernfeld 3 – Clients in Netzwerke einbinden](#lernfeld-3--clients-in-netzwerke-einbinden)
 - [Lernfeld 4 – Schutzbedarfsanalyse im eigenen Arbeitsbereich durchführen](#lernfeld-4--schutzbedarfsanalyse-im-eigenen-arbeitsbereich-durchführen)
 - [Lernfeld 5 – Software zur Verwaltung von Daten anpassen](#lernfeld-5--software-zur-verwaltung-von-daten-anpassen)
 - [Aktuelle Lerninhalte](#aktuelle-lerninhalte)
 - [Quellen](#quellen)
 - [Lehrplan-Manifeste](#lehrplan-manifeste)
+
+---
+
+## Lernfeld 2 – Arbeitsplätze nach Kundenwunsch ausstatten
+
+> Ordner: [`Lernfeld 2 Arbeitsplätze nach Kundenwunsch ausstatten/`](Lernfeld%202%20Arbeitspl%C3%A4tze%20nach%20Kundenwunsch%20ausstatten/README.md)
+
+Rechenaufgaben für die AP1: Einheiten, Bild/Video/Audio, Datenübertragung, Speicher, Strom/USV, IP-Adressen, Kalkulation und Nutzwertanalyse – 7 Kapitel, 55 Übungen mit Lösung, Probeklausur.
 
 ---
 
